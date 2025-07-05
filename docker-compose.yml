@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  auth-service:
+    build:
+      context: ./backend-springboot
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    networks:
+      - app-network
+
+
+
+  frontend:
+    build:
+      context: ./frontend-angular/frontend-angular
+      dockerfile: Dockerfile
+    ports:
+      - "4200:4200"
+    networks:
+      - app-network
+    stdin_open: true
+    tty: true
+    command: npm start
+
+networks:
+  app-network:
+    driver: bridge
